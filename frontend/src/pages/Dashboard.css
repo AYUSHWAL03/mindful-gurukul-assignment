@@ -1,13 +1,24 @@
-.container{
+.container1 {
     display: grid;
-    width: 100dvw;
-    height: 100dvh;
-    position: absolute;
-    top: 0%;
-    left: 0;
-    .gridItem{
-        border: 1px solid black;
-        width: 20dvw;
-        height: 20dvh;
-    }
-}
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    justify-content: center;
+  }
+  
+  .gridItem {
+    border: 1px solid black;
+    /* position: relative;
+    top: 2rem; */
+    height: 20vh;
+    margin: 1rem;
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    border-radius: 20px;
+  }
+  .icons{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    /* cursor: pointer; */
+  }
+  

@@ -11,8 +11,10 @@
     position: absolute;
     /* justify-content: flex-end; */
     top: 1rem;
+    display: flex;
     right: 2rem;
     border: 1px solid black;
+    cursor: pointer;
     padding: 0.5rem 1rem;
     border-radius: 30px;
     background-color: lightgreen;

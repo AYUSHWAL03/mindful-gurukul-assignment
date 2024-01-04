@@ -36,11 +36,13 @@ routes.get('/api/users',async (req, res) => {
 })
 routes.post('/api/delete-users',async (req, res) => {
     try {
-        const { email } = await req.body;
-        Userhandler.deleteOne({email : email})
+        const { _id } = await req.body;
+        Userhandler.deleteOne({_id : _id})
         .then(()=>{
             res.status(200).send({"msg" : "deleted successfully"})
-        }) 
+        }).catch(() => {
+            res.status(500).send({"msg" : "No data found"})
+        });
     } catch (error) {
         res.status(404).send({err: error.message})
     }   
@@ -48,12 +50,12 @@ routes.post('/api/delete-users',async (req, res) => {
 
 routes.patch('/api/update-user',async (req, res) => {
     try {
-        const { username , email, phone } = req.body;
+        const { _id,username , email, phone } = req.body;
         const updatedUserDetail = {username , email, phone};
         // const userId = await Userhandler.findOne({})
         // considering username is unique field
-        const updatedUser = await Userhandler.findOneAndUpdate(
-            { username: username},
+        const updatedUser = await Userhandler.findByIdAndUpdate(
+            { _id: _id},
             updatedUserDetail,
             { new: true } // to return the modified document
         );
