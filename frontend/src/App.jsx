@@ -3,7 +3,7 @@ import SignUp from './pages/Signup'
 import Login from './pages/login'
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Dashboard from './pages/dashboard'
-
+import './App.css';
 function App() {
 
   return (

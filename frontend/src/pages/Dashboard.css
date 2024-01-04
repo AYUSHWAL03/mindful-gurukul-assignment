@@ -1,0 +1,13 @@
+.container{
+    display: grid;
+    width: 100dvw;
+    height: 100dvh;
+    position: absolute;
+    top: 0%;
+    left: 0;
+    .gridItem{
+        border: 1px solid black;
+        width: 20dvw;
+        height: 20dvh;
+    }
+}

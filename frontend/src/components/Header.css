@@ -1,0 +1,19 @@
+.header{
+    display: flex;
+    width: 100dvw;
+    text-align: center;
+    justify-content: center;
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    border-bottom: 1px solid black;
+}
+.addUser-btn{
+    position: absolute;
+    /* justify-content: flex-end; */
+    top: 1rem;
+    right: 2rem;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    background-color: lightgreen;
+}

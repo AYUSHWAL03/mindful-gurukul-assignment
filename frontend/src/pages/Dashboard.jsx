@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
+import './Dashboard.css';
 function Dashboard() {
   const [userInfo, setUserInfo] = useState([]);
 
@@ -20,10 +21,12 @@ function Dashboard() {
   return (
     <div>
         <Header/>      
+        <div className='container'>
+
       {userInfo.length === 0 ? (
-        <p>No users found</p>
-      ) : (
-        <div>
+          <p>No users found</p>
+          ) : (
+              <div>
           {userInfo.map((user, index) => (
             <div key={index} className='gridItem'>
               <h4>{user.username}</h4>
@@ -34,6 +37,7 @@ function Dashboard() {
         </div>
       )}
     </div>
+      </div>
   );
 }
 
