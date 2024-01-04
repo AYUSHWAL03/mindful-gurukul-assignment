@@ -5,58 +5,88 @@ import { FaRegEdit } from "react-icons/fa";
 import { IoTrashBin } from "react-icons/io5";
 import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
+import Edituser from '../components/Edituser';
+
+
 function Dashboard() {
   const [userInfo, setUserInfo] = useState([]);
+  const [selectedUser, setSelectedUser] = useState('');
+  const [editModal,setEditModal] = useState(false);
   const navigate = useNavigate();
-  // console.log(userInfo)
+  
   useEffect(() => {
     axios.get("http://localhost:3000/api/users")
       .then((res) => {
         const userDetailMap = res.data.map(user => ({
-          _id : user._id,
+          _id: user._id,
           username: user.username,
           phone: user.phone,
           email: user.email
         }));
-        
+
         setUserInfo(userDetailMap);
         console.log(userInfo)
       });
   }, []);
-  const deleteHandler = (userId) =>{
-    axios.post("http://localhost:3000/api/delete-users",{_id: userId})
-    .then((res) => {
-     console.log(res.data) 
+
+  const editHandler = (userId) =>{
+    setEditModal(true);
+    setSelectedUser(userId)
+    console.log("User _id is :",selectedUser)
+  }
+  const handleUserEdit = (userId,userData) =>{
+    console.log('Editing user:', userId, userData);
+    axios.patch('http://localhost:3000/api/update-user',{
+      _id: userId,
+      username : userData.username,
+      phone : userData.phone,
+      email : userData.email
+    }).then((res)=>{
+      console.log(res)
     })
-    navigate("/")
+  }
+  const deleteHandler = (userId) => {
+    confirm("Are you sure you want to delete").valueOf(true).then(()=>{
+      axios.post("http://localhost:3000/api/delete-users", { _id: userId })
+        .then((res) => {
+          console.log(res.data)
+        })
+      navigate("/")
+
+    })
   }
   return (
     <div>
-        <Header/>      
-        <div className='container1'>
+      <Header />
+      <div className='container1'>
 
-      {userInfo.length === 0 ? (
+        {userInfo.length === 0 ? (
           <p>No users found</p>
-          ) : (
-              <div>
-          {userInfo.map((user) => (
-            <div key={user._id} className='gridItem'>
+        ) : (
+          <div>
+            {userInfo.map((user) => (
+              <div key={user._id} className='gridItem'>
                 <div className='icons'>
 
-                <FaRegEdit style={{backgroundColor:"lightblue",padding:"1px",borderRadius:"5px",margin:"0px 5px",cursor:"pointer"}} />
-                <IoTrashBin style={{backgroundColor:"#ff5460", padding:"1px",borderRadius:"5px",margin:"0px 5px",cursor:"pointer"}} onClick={()=>deleteHandler(user._id)}/>
+                  <FaRegEdit style={{ backgroundColor: "lightblue", padding: "1px", borderRadius: "5px", margin: "0px 5px", cursor: "pointer" }} onClick={()=>editHandler(user._id)}/>
+                  <IoTrashBin style={{ backgroundColor: "#ff5460", padding: "1px", borderRadius: "5px", margin: "0px 5px", cursor: "pointer" }} onClick={() => deleteHandler(user._id)} />
                 </div>
-              <h4>username :{user.username}  </h4>
-              <h4>phone : {user.phone} </h4>
-              <h4>email : {user.email}</h4>
-            </div>
-          ))
-          
-          }
-        </div>
-      )}
-    </div>
+                <h4>username :{user.username}  </h4>
+                <h4>phone : {user.phone} </h4>
+                <h4>email : {user.email}</h4>
+              </div>
+            ))
+
+            }
+          </div>
+        )}
       </div>
+
+      <Edituser isOpen={editModal} 
+      closeModal = {()=>{setEditModal(false)}}
+      userId={selectedUser}
+      editUser = {handleUserEdit} />
+    </div>
   );
 }
 

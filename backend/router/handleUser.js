@@ -47,11 +47,23 @@ routes.post('/api/delete-users',async (req, res) => {
         res.status(404).send({err: error.message})
     }   
 })
-
+routes.post('/api/get-user',async (req, res) => {
+    try {
+        const { _id } = req.body;
+        Userhandler.findById({_id : _id})
+        .then((response) =>{
+            res.status(200).send(response);
+        }).catch((error) => {
+            res.status(500).send({err: error.message})
+        });
+    } catch (error) {
+        
+    }   
+})
 routes.patch('/api/update-user',async (req, res) => {
     try {
         const { _id,username , email, phone } = req.body;
-        const updatedUserDetail = {username , email, phone};
+        const updatedUserDetail = {_id,username , email, phone};
         // const userId = await Userhandler.findOne({})
         // considering username is unique field
         const updatedUser = await Userhandler.findByIdAndUpdate(

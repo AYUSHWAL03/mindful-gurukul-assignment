@@ -68,7 +68,7 @@ const Signup = () => {
             setErrorMessage(res.data.result.msg)
           })
       } catch (error) {
-        setError(error.message);
+        setErrorMessage(error.message);
         console.log(error.message)
       }
   };

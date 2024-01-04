@@ -84,6 +84,7 @@ const Login = () => {
                     />
                 </div>
                 <button type="submit" className='login-btn'>Submit</button>
+                <p>new member join <a href="/signup">here</a></p>
             </form>
         </div>
     )
