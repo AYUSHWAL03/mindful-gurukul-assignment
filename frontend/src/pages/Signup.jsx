@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { redirect,useNavigate } from 'react-router-dom';
 import './Signup.css';
 const Signup = () => {
   const [name, setName] = useState('');
@@ -11,6 +12,7 @@ const Signup = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
   const[loggedIn, setLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const handleCheckboxChange = (value) => {
@@ -72,6 +74,9 @@ const Signup = () => {
             localStorage.setItem("jwt", res.data.result.token);
             localStorage.setItem("user", JSON.stringify(res.data.result.registration));
             setError(true);
+            setTimeout(() => {
+              navigate('/')
+          }, 1000);
             setErrorMessage(res.data.result.msg)
           })
       } catch (error) {

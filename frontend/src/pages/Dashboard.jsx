@@ -15,6 +15,7 @@ function Dashboard() {
   const [editModal, setEditModal] = useState(false);
   const [searchUser, setSearchUser] = useState('')
   const [filteredUser, setFilteredUser] = useState([])
+  const [loggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -31,6 +32,10 @@ function Dashboard() {
         setFilteredUser(userDetailMap);
         console.log(userInfo)
       });
+      if(localStorage.getItem("jwt")){
+        setLoggedIn(true)
+      }
+      
   }, []);
 
   const editHandler = (userId) => {
@@ -84,9 +89,10 @@ function Dashboard() {
   }
   return (
     <div>
+
       <Header />
       <div className='container1'>
-
+      
         {userInfo.length === 0 ? (
           <p>No users found</p>
         ) : (
@@ -103,9 +109,13 @@ function Dashboard() {
             {filteredUser.map((user) => (
               <div key={user._id} className='gridItem'>
                 <div className='icons'>
+                {loggedIn && 
+                <div>
 
                   <FaRegEdit style={{ backgroundColor: "lightblue", padding: "1px", borderRadius: "5px", margin: "0px 5px", cursor: "pointer" }} onClick={() => editHandler(user._id)} />
                   <IoTrashBin style={{ backgroundColor: "#ff5460", padding: "1px", borderRadius: "5px", margin: "0px 5px", cursor: "pointer" }} onClick={() => deleteHandler(user._id)} />
+                </div>
+                }
                 </div>
                 <h4>username :{user.username}  </h4>
                 <h4>phone : {user.phone} </h4>
