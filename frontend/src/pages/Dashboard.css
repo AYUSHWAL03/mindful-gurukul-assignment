@@ -55,3 +55,8 @@
     background-color: lightsalmon;
 
   }
+  .online-status{
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+  }

@@ -7,7 +7,7 @@ import './Dashboard.css';
 import { useNavigate } from 'react-router-dom';
 import Edituser from '../components/Edituser';
 import { IoFilterCircle } from "react-icons/io5";
-
+import OnlineStatus from '../components/OnlineStatus';
 
 function Dashboard() {
   const [userInfo, setUserInfo] = useState([]);
@@ -133,6 +133,10 @@ function Dashboard() {
         closeModal={() => { setEditModal(false) }}
         userId={selectedUser}
         editUser={handleUserEdit} />
+        
+        <div className='online-status'>
+          <OnlineStatus />
+        </div>
     </div>
   );
 }
