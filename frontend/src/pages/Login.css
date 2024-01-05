@@ -9,7 +9,22 @@
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
   }
+
+  .displayErrorToast {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background-color: #d55c5a;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
   
+  .displayErrorToast.show {
+    opacity: 1;
+  }
   .displayToast.show {
     opacity: 1;
   }
@@ -36,7 +51,13 @@
   .displayToast.slideIn {
     animation: slideIn 0.5s ease-in-out;
   }
+  .displayErrorToast.slideIn {
+    animation: slideIn 0.5s ease-in-out;
+  }
   
+  .displayErrorToast.slideOut {
+    animation: slideOut 0.5s ease-in-out;
+  }
   .displayToast.slideOut {
     animation: slideOut 0.5s ease-in-out;
   }
@@ -46,6 +67,7 @@
     justify-content: center;
     align-items: center;
     height: 100dvh;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
   
   .login-form {

@@ -8,6 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
     const [loggedIn, setLoggedIn] = useState(false);
     const [message, setMessage] = useState('');
+    const [error,setError] = useState(false);
     const navigate = useNavigate();
     useEffect(() => {
         if (localStorage.getItem('jwt')) {
@@ -16,12 +17,21 @@ const Login = () => {
 
     }, [])
     const showToast = () => {
-        const toast = document.querySelector('.displayToast');
-        toast.classList.add('show', 'slideIn');
+        const toast = document.querySelector('.displayToast').classList;
+        toast.add('show', 'slideIn');
         setTimeout(() => {
-          toast.classList.remove('show', 'slideIn');
+          toast.remove('show', 'slideIn');
         }, 3000);
       };
+
+    const showErrorToast = () => {
+        const toast = document.querySelector('.displayErrorToast').classList;
+        toast.add('show', 'slideIn');
+        setTimeout(() => {
+          toast.remove('show', 'slideIn');
+        }, 3000);
+      };
+
       const handleSubmit = async (e) => {
         e.preventDefault();
     
@@ -50,7 +60,9 @@ const Login = () => {
                 }, 1000);
             }
         } catch (err) {
-            setError(err.message);
+            setError(true)
+            setMessage("email and password does not match");
+            showErrorToast();
             console.log(err.message);
         }
     };
@@ -59,6 +71,10 @@ const Login = () => {
         <div className='container'>
             {loggedIn &&
                 <div className='displayToast'>
+                    <p> {message}</p>
+                </div>}
+            {error &&
+                <div className='displayErrorToast' >
                     <p> {message}</p>
                 </div>}
             <form action="POST" onSubmit={handleSubmit} className='login-form' >
